@@ -203,8 +203,6 @@ class FlowDashboard:
                 median_val,
                 trend,
                 prediction,
-                current_a,
-                current_b,
                 session_records
             )
 
@@ -350,55 +348,41 @@ class FlowDashboard:
 
     def _estimate_flux_ab(
         self,
-        session_records: List[Dict[str, Any]],
-        delay_steps: int = 1  # 1 pas * 3s ≈ 2,5s de marche
+        session_records: List[Dict[str, Any]]
     ) -> tuple[float, float]:
         """
-        Estime les flux A->B et B->A de manière simple, à partir des séries
-        local_count (cam A) et remote_count (cam B) avec un décalage temporel.
-
-        On ne compte un flux que si la caméra source et la caméra cible
-        voient toutes les deux au moins une personne (valeur > 0).
+        Estime les flux A->B et B->A de manière simple.
+        
+        Méthode : on compte les transitions où une caméra voit une augmentation
+        juste après que l'autre ait détecté des personnes.
         """
         local_series = [rec.get("local_count", 0) for rec in session_records]
         remote_series = [rec.get("remote_count", 0) for rec in session_records]
 
-        n = min(len(local_series), len(remote_series))
-        if n <= delay_steps:
+        n = len(local_series)
+        if n < 2:
             return 0.0, 0.0
 
-        flux_a_to_b = 0.0
-        flux_b_to_a = 0.0
-        count_pairs_ab = 0
-        count_pairs_ba = 0
+        flux_a_to_b = 0
+        flux_b_to_a = 0
 
-        for i in range(n - delay_steps):
-            a_now = local_series[i]
-            b_future = remote_series[i + delay_steps]
+        for i in range(n - 1):
+            local_now = local_series[i]
+            local_next = local_series[i + 1]
+            remote_now = remote_series[i]
+            remote_next = remote_series[i + 1]
 
-            b_now = remote_series[i]
-            a_future = local_series[i + delay_steps]
+            # A -> B : si A diminue ET B augmente
+            if local_now > local_next and remote_next > remote_now:
+                flux_a_to_b += (local_now - local_next)
 
-            # A -> B : il faut des gens sur A maintenant ET sur B plus tard
-            if a_now > 0 and b_future > 0:
-                delta_b = b_future - b_now
-                if delta_b > 0:
-                    flux_a_to_b += delta_b
-                count_pairs_ab += 1
+            # B -> A : si B diminue ET A augmente
+            if remote_now > remote_next and local_next > local_now:
+                flux_b_to_a += (remote_now - remote_next)
 
-            # B -> A : il faut des gens sur B maintenant ET sur A plus tard
-            if b_now > 0 and a_future > 0:
-                delta_a = a_future - a_now
-                if delta_a > 0:
-                    flux_b_to_a += delta_a
-                count_pairs_ba += 1
-
-        mean_flux_a_to_b = (
-            flux_a_to_b / count_pairs_ab if count_pairs_ab > 0 else 0.0
-        )
-        mean_flux_b_to_a = (
-            flux_b_to_a / count_pairs_ba if count_pairs_ba > 0 else 0.0
-        )
+        # Moyenne par mesure
+        mean_flux_a_to_b = flux_a_to_b / max(n - 1, 1)
+        mean_flux_b_to_a = flux_b_to_a / max(n - 1, 1)
 
         return mean_flux_a_to_b, mean_flux_b_to_a
 
@@ -409,14 +393,11 @@ class FlowDashboard:
         median_val: float,
         trend: str,
         prediction: Optional[float],
-        current_a: int,
-        current_b: int,
         session_records: List[Dict[str, Any]]
     ) -> str:
         """
         Construit le texte du panneau info (stats globales + flux estimés).
         """
-        total_final = current_a + current_b
         std_val = float(np.std(history))
 
         info = ""
@@ -427,17 +408,15 @@ class FlowDashboard:
         info += f"Écart-type: {std_val:5.2f}\n"
         info += f"Tendance finale: {trend.upper()}\n"
 
-        if prediction is not None:
+        if prediction is not None and len(history) > 0:
             info += "-" * 32 + "\n"
             info += f"Prédiction totale +30s: {prediction:5.1f}\n"
-            delta = prediction - total_final
+            # Delta par rapport à la dernière valeur observée
+            delta = prediction - history[-1]
             info += f"Delta vs actuel: {delta:+5.1f}\n"
 
         # Flux estimés A->B / B->A
-        flux_a_to_b, flux_b_to_a = self._estimate_flux_ab(
-            session_records,
-            delay_steps=1  # 1 * 3s ≈ 2,5s
-        )
+        flux_a_to_b, flux_b_to_a = self._estimate_flux_ab(session_records)
 
         info += "-" * 32 + "\n"
         info += f"Flux A -> B (moyen): {flux_a_to_b:5.2f}\n"
@@ -500,8 +479,6 @@ class FrameAnnotator:
             (0, 255, 0),
             3
         )
-
-        # On n'affiche plus la prédiction
 
         # Timestamp
         timestamp = datetime.now().strftime("%H:%M:%S")
