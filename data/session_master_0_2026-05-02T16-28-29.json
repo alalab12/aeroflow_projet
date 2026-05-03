@@ -1,0 +1,523 @@
+{
+  "mode": "master",
+  "camera_id": 0,
+  "master_ip": "192.168.1.100",
+  "start_time": "2026-05-02T16:28:29",
+  "end_time": "2026-05-02T16:32:21",
+  "duration_seconds": 231.28,
+  "sample_count": 64,
+  "records": [
+    {
+      "timestamp": "2026-05-02T16:28:33",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:36",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:39",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:42",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:46",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:49",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:52",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:55",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:28:58",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:01",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:05",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:08",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:12",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:15",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:18",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:21",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:24",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:28",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:31",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:35",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:38",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:42",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:45",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:49",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:53",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:29:57",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:01",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:05",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:10",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:13",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:17",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:20",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:23",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:26",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:29",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:32",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:36",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:39",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:42",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:45",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:49",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:52",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:56",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:30:59",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:03",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:06",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:10",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 1.9454545454545453,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:13",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 2.703030303030303,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:17",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 3.2727272727272725,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:21",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 3.6545454545454543,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:25",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 3.8484848484848486,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:28",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 1.9636363636363638,
+      "trend": "baisse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:32",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 0.26666666666666683,
+      "trend": "baisse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:36",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 0.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:40",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 0.0,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:44",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 0.0,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:48",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 0.8363636363636362,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:53",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 1.9636363636363636,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:31:57",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 3.090909090909091,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:32:01",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 4.218181818181819,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:32:05",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 5.345454545454545,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:32:09",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 4.606060606060606,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:32:14",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 3.4909090909090907,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T16:32:18",
+      "local_count": 1,
+      "remote_count": 1,
+      "total_count": 2,
+      "prediction": 2.0,
+      "trend": "stable"
+    }
+  ]
+}

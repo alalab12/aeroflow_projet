@@ -1,0 +1,74 @@
+[
+  {
+    "timestamp": "2026-05-03T08:48:55",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-03T08:48:58",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:01",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": 0.13333333333333552,
+    "trend": "baisse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:04",
+    "local_count": 6,
+    "remote_count": 0,
+    "total_count": 6,
+    "prediction": 5.003200000000001,
+    "trend": "hausse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:07",
+    "local_count": 5,
+    "remote_count": 0,
+    "total_count": 5,
+    "prediction": 6.543359999999999,
+    "trend": "hausse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:10",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": 6.266940952380951,
+    "trend": "baisse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:13",
+    "local_count": 2,
+    "remote_count": 0,
+    "total_count": 2,
+    "prediction": 4.521993142857141,
+    "trend": "baisse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:16",
+    "local_count": 2,
+    "remote_count": 0,
+    "total_count": 2,
+    "prediction": 2.957069714285713,
+    "trend": "baisse"
+  },
+  {
+    "timestamp": "2026-05-03T08:49:19",
+    "local_count": 1,
+    "remote_count": 0,
+    "total_count": 1,
+    "prediction": 1.8456228571428566,
+    "trend": "baisse"
+  }
+]

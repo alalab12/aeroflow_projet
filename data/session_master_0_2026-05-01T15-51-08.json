@@ -1,0 +1,43 @@
+{
+  "mode": "master",
+  "camera_id": 0,
+  "master_ip": "192.168.1.100",
+  "start_time": "2026-05-01T15:51:08",
+  "end_time": "2026-05-01T15:51:22",
+  "duration_seconds": 14.1,
+  "sample_count": 4,
+  "records": [
+    {
+      "timestamp": "2026-05-01T15:51:12",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-01T15:51:15",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-01T15:51:18",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-01T15:51:21",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    }
+  ]
+}

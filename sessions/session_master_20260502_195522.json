@@ -1,0 +1,42 @@
+[
+  {
+    "timestamp": "2026-05-02T19:55:09",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-02T19:55:12",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-02T19:55:15",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": 3.0,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-02T19:55:18",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": 3.0,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-02T19:55:21",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": 4.04,
+    "trend": "hausse"
+  }
+]

@@ -1,0 +1,579 @@
+{
+  "mode": "master",
+  "camera_id": 0,
+  "master_ip": "192.168.1.100",
+  "start_time": "2026-05-02T10:41:59",
+  "end_time": "2026-05-02T10:46:25",
+  "duration_seconds": 265.72,
+  "sample_count": 71,
+  "records": [
+    {
+      "timestamp": "2026-05-02T10:42:03",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:06",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": null,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:09",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:12",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:15",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:18",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:22",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:25",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:28",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:31",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:34",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:38",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:42",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:45",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:48",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:51",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:54",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:42:57",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:00",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:04",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:07",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:11",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:14",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:18",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:22",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:26",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:29",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:32",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:35",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:38",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:41",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:45",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:48",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:51",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:55",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:43:58",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:02",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:05",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:09",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:12",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:16",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:20",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:23",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:27",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:31",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:35",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:38",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:42",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:46",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:50",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:54",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:44:58",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:03",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:08",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:12",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:16",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:21",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:25",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:30",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:34",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:38",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 0.054545454545454675,
+      "trend": "baisse"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:42",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 0.0,
+      "trend": "baisse"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:46",
+      "local_count": 0,
+      "remote_count": 0,
+      "total_count": 0,
+      "prediction": 0.0,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:50",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 0.0,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:55",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 0.0,
+      "trend": "hausse"
+    },
+    {
+      "timestamp": "2026-05-02T10:45:59",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 0.4181818181818181,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:46:04",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 0.9818181818181818,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:46:08",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 1.5454545454545454,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:46:13",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 2.1090909090909093,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:46:18",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 2.6727272727272724,
+      "trend": "stable"
+    },
+    {
+      "timestamp": "2026-05-02T10:46:22",
+      "local_count": 1,
+      "remote_count": 0,
+      "total_count": 1,
+      "prediction": 2.303030303030303,
+      "trend": "stable"
+    }
+  ]
+}

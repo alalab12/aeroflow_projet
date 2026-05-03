@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-05-03T08:43:46",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-03T08:43:49",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": null,
+    "trend": "stable"
+  },
+  {
+    "timestamp": "2026-05-03T08:43:52",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": 6.866666666666668,
+    "trend": "hausse"
+  },
+  {
+    "timestamp": "2026-05-03T08:43:55",
+    "local_count": 3,
+    "remote_count": 0,
+    "total_count": 3,
+    "prediction": 4.956800000000002,
+    "trend": "baisse"
+  },
+  {
+    "timestamp": "2026-05-03T08:43:59",
+    "local_count": 6,
+    "remote_count": 0,
+    "total_count": 6,
+    "prediction": 6.984640000000002,
+    "trend": "hausse"
+  },
+  {
+    "timestamp": "2026-05-03T08:44:02",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": 6.944868571428573,
+    "trend": "hausse"
+  },
+  {
+    "timestamp": "2026-05-03T08:44:05",
+    "local_count": 4,
+    "remote_count": 0,
+    "total_count": 4,
+    "prediction": 6.525092571428573,
+    "trend": "baisse"
+  }
+]
