@@ -17,7 +17,7 @@ class FlowDashboard:
     Tableau de bord de synthèse des flux.
 
     - Graph du haut : flux total + moyenne + médiane + prédiction
-    - Zone du bas : tableau (heure, caméra, moyenne 10s)
+    - Zone du bas : tableau (heure, caméra, mesure 3s)
     - Panneau info à droite avec stats globales et flux A<->B estimés
     """
 
@@ -190,7 +190,7 @@ class FlowDashboard:
             self.ax1.set_ylim(0, max(y_max, 5))
 
             # ---------------------------
-            # 2) Zone du bas : tableau structuré (10 s)
+            # 2) Zone du bas : tableau structuré (3s)
             # ---------------------------
             self._draw_table(session_records)
 
@@ -231,8 +231,8 @@ class FlowDashboard:
     def _draw_table(self, session_records: List[Dict[str, Any]]):
         """
         Dessine un tableau dans ax2 :
-        Heure | Caméra | Moyenne 10s
-        (A, B et Total pour chaque tranche de 10s)
+        Heure | Caméra | Mesure 3s
+        (A, B et Total pour chaque mesure de 3s, pas de moyenne)
         """
         self.ax2.clear()
         self.ax2.axis('off')
@@ -250,122 +250,74 @@ class FlowDashboard:
                 self.ax2.text(
                     0.5,
                     0.5,
-                    "Pas de données pour le tableau 10s",
+                    "Pas de données pour le tableau",
                     ha='center',
                     va='center',
                     fontsize=11
                 )
                 return
 
-            rows = []
-            start_time = times[0]
-            bucket_loc = []
-            bucket_rem = []
-            bucket_tot = []
-            bucket_start = start_time
-
+            # Construction directe : une ligne par mesure (3s)
+            cell_text = []
             for t, loc, rem, tot in zip(times, locals_, remotes, totals):
-                # nouvelle tranche de 10s
-                if (t - bucket_start).total_seconds() >= 10 and bucket_tot:
-                    ts_str = bucket_start.strftime("%H:%M:%S")
-                    rows.extend(self._summarize_bucket(ts_str, bucket_loc,
-                                                       bucket_rem, bucket_tot))
-                    bucket_loc = []
-                    bucket_rem = []
-                    bucket_tot = []
-                    bucket_start = t
+                ts_str = t.strftime("%H:%M:%S")
+                
+                # Ligne pour caméra A
+                cell_text.append([ts_str, "A", f"{loc:3.1f}"])
+                
+                # Ligne pour caméra B (seulement si B a vu quelque chose)
+                if rem > 0:
+                    cell_text.append([ts_str, "B", f"{rem:3.1f}"])
+                
+                # Ligne Total
+                cell_text.append([ts_str, "Total", f"{tot:3.1f}"])
 
-                bucket_loc.append(loc)
-                bucket_rem.append(rem)
-                bucket_tot.append(tot)
-
-            # Dernière tranche
-            if bucket_tot:
-                ts_str = bucket_start.strftime("%H:%M:%S")
-                rows.extend(self._summarize_bucket(ts_str, bucket_loc,
-                                                   bucket_rem, bucket_tot))
-
-            if not rows:
+            if not cell_text:
                 self.ax2.text(
                     0.5,
                     0.5,
-                    "Pas assez de données pour le tableau 10s",
+                    "Pas de données",
                     ha='center',
                     va='center',
                     fontsize=11
                 )
                 return
 
-            # Construction du tableau structuré
-            cell_text = []
-            for ts_str, cam_name, mean_str in rows:
-                cell_text.append([ts_str, cam_name, mean_str])
+            # Limiter à 50 dernières lignes pour éviter surcharge visuelle
+            if len(cell_text) > 50:
+                cell_text = cell_text[-50:]
 
             table = self.ax2.table(
                 cellText=cell_text,
-                colLabels=["Heure", "Caméra", "Moyenne 10s"],
+                colLabels=["Heure", "Caméra", "Mesure 3s"],
                 loc="center"
             )
             table.auto_set_font_size(False)
-            table.set_fontsize(9)
-            table.scale(1, 1.3)
+            table.set_fontsize(8)  # Police réduite pour plus de lignes
+            table.scale(1, 1.2)
 
         except Exception as e:
             self.ax2.text(
                 0.5,
                 0.5,
-                f"Erreur tableau 10s: {e}",
+                f"Erreur tableau: {e}",
                 ha='center',
                 va='center',
                 fontsize=11
             )
 
-    def _summarize_bucket(
-        self,
-        ts_str: str,
-        bucket_loc: List[int],
-        bucket_rem: List[int],
-        bucket_tot: List[int]
-    ):
-        """
-        Construit les lignes (A, B, Total) pour une tranche de 10s.
-        Retourne une liste de tuples (heure, camera, moyenne_str).
-        """
-        rows = []
-
-        if bucket_loc:
-            mean_loc = float(np.mean(bucket_loc))
-            rows.append((ts_str, "A", f"{mean_loc:5.1f}"))
-        if bucket_rem and max(bucket_rem) > 0:  # n'afficher B que s'il a vu qqch
-            mean_rem = float(np.mean(bucket_rem))
-            rows.append((ts_str, "B", f"{mean_rem:5.1f}"))
-
-        if bucket_tot:
-            mean_tot = float(np.mean(bucket_tot))
-            rows.append((ts_str, "Total", f"{mean_tot:5.1f}"))
-
-        return rows
-
     def _estimate_flux_ab(
         self,
         session_records: List[Dict[str, Any]],
-        delay_steps: int = 2,  # 2 mesures * 3s = ~6s de délai (temps de marche A->B)
-        threshold: float = 0.3  # variation minimale pour compter un flux
+        delay_steps: int = 2,
+        threshold: float = 0.2  # RÉDUIT à 0.2 pour être plus sensible
     ) -> tuple[float, float]:
         """
-        Estime les flux A->B et B->A avec délai temporel et seuil.
+        Estime les flux A->B et B->A avec délai temporel et seuil adaptatif.
         
-        Logique :
-        - A->B : on regarde si A diminue à t, puis B augmente à t+delay
-        - B->A : on regarde si B diminue à t, puis A augmente à t+delay
-        
-        Args:
-            session_records: liste des enregistrements de session
-            delay_steps: nombre de mesures de délai (1 step = SAMPLING_INTERVAL secondes)
-            threshold: variation minimale pour compter comme un flux
-        
-        Returns:
-            (flux_a_to_b_moyen, flux_b_to_a_moyen)
+        Logique améliorée :
+        - Détecte les flux même si les variations sont faibles
+        - Utilise un seuil relatif (% de variation) en plus du seuil absolu
         """
         local_series = np.array([rec.get("local_count", 0) for rec in session_records], dtype=float)
         remote_series = np.array([rec.get("remote_count", 0) for rec in session_records], dtype=float)
@@ -379,51 +331,59 @@ class FlowDashboard:
         count_a_to_b = 0
         count_b_to_a = 0
 
-        # Parcourir avec délai
         for i in range(n - delay_steps - 1):
-            # État au moment t
             a_now = local_series[i]
             b_now = remote_series[i]
             
-            # État au moment t+1 (immédiat)
             a_next = local_series[i + 1]
             b_next = remote_series[i + 1]
             
-            # État au moment t+delay (après marche)
             a_delayed = local_series[i + delay_steps]
             b_delayed = remote_series[i + delay_steps]
 
-            # --- Flux A -> B ---
-            # Condition : A diminue de manière significative ET B augmente avec délai
+            # --- Flux A -> B (CRITÈRES ASSOUPLIS) ---
             delta_a_immediate = a_now - a_next
             delta_b_delayed = b_delayed - b_now
             
-            if delta_a_immediate >= threshold and delta_b_delayed >= threshold:
-                # On prend le minimum des deux variations (personnes réellement transférées)
+            # Nouvelle condition : variation absolue OU relative significative
+            a_variation_significant = (
+                delta_a_immediate >= threshold or 
+                (a_now > 0.1 and delta_a_immediate / a_now >= 0.3)  # 30% de baisse
+            )
+            
+            b_increase_significant = (
+                delta_b_delayed >= threshold or
+                (b_now >= 0 and delta_b_delayed > 0.1)  # n'importe quelle hausse > 0.1
+            )
+            
+            if a_variation_significant and b_increase_significant and a_now > 0:
                 transferred = min(delta_a_immediate, delta_b_delayed)
-                flux_a_to_b_total += transferred
-                count_a_to_b += 1
+                if transferred > 0:
+                    flux_a_to_b_total += transferred
+                    count_a_to_b += 1
 
-            # --- Flux B -> A ---
-            # Condition : B diminue de manière significative ET A augmente avec délai
+            # --- Flux B -> A (CRITÈRES ASSOUPLIS) ---
             delta_b_immediate = b_now - b_next
             delta_a_delayed = a_delayed - a_now
             
-            if delta_b_immediate >= threshold and delta_a_delayed >= threshold:
-                # On prend le minimum des deux variations
+            b_variation_significant = (
+                delta_b_immediate >= threshold or
+                (b_now > 0.1 and delta_b_immediate / b_now >= 0.3)
+            )
+            
+            a_increase_significant = (
+                delta_a_delayed >= threshold or
+                (a_now >= 0 and delta_a_delayed > 0.1)
+            )
+            
+            if b_variation_significant and a_increase_significant and b_now > 0:
                 transferred = min(delta_b_immediate, delta_a_delayed)
-                flux_b_to_a_total += transferred
-                count_b_to_a += 1
+                if transferred > 0:
+                    flux_b_to_a_total += transferred
+                    count_b_to_a += 1
 
-        # Moyennes
-        mean_flux_a_to_b = flux_a_to_b_total / max(count_a_to_b, 1)
-        mean_flux_b_to_a = flux_b_to_a_total / max(count_b_to_a, 1)
-
-        # Si aucun flux détecté, retourner 0
-        if count_a_to_b == 0:
-            mean_flux_a_to_b = 0.0
-        if count_b_to_a == 0:
-            mean_flux_b_to_a = 0.0
+        mean_flux_a_to_b = flux_a_to_b_total / count_a_to_b if count_a_to_b > 0 else 0.0
+        mean_flux_b_to_a = flux_b_to_a_total / count_b_to_a if count_b_to_a > 0 else 0.0
 
         return mean_flux_a_to_b, mean_flux_b_to_a
 
@@ -459,8 +419,8 @@ class FlowDashboard:
         # Flux estimés A->B / B->A avec délai optimisé
         flux_a_to_b, flux_b_to_a = self._estimate_flux_ab(
             session_records,
-            delay_steps=1,    # 2 mesures * 3s = 6s de délai (temps de marche)
-            threshold=0.3     # variation minimale pour éviter le bruit
+            delay_steps=2,    # 2 mesures * 3s = 6s de délai (temps de marche)
+            threshold=0.2     # variation minimale pour éviter le bruit
         )
 
         info += "-" * 32 + "\n"
