@@ -7,6 +7,7 @@ Configuration globale AeroFlow
 # -----------------------------
 MASTER_IP = "127.0.0.1"
 NETWORK_PORT = 5005
+BUFFER_SIZE = 4096
 
 MODELS_DIR = "models"
 
