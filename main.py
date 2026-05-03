@@ -34,7 +34,11 @@ class AeroFlowApp:
         self.tracker = PeopleTracker(use_yolo=True)
 
         if mode == "master":
-            self.predictor = FlowPredictor()
+            # 3 prédicteurs séparés
+            self.predictor_total = FlowPredictor()
+            self.predictor_a = FlowPredictor()
+            self.predictor_b = FlowPredictor()
+            
             self.dashboard = FlowDashboard()
             self.server = NetworkServer(callback=self.on_remote_count)
             self.remote_count = 0
@@ -81,14 +85,18 @@ class AeroFlowApp:
         last_sample_time = time.time()
         frame_count = 0
 
-        last_prediction = None
-        last_trend = "stable"
+        # Prédictions et tendances
+        last_prediction_total = None
+        last_prediction_a = None
+        last_prediction_b = None
+        last_trend_total = "stable"
+        last_trend_a = "stable"
+        last_trend_b = "stable"
 
         try:
             while self.is_running:
                 frame = self.camera.get_frame()
                 if frame is None:
-                    # Fin de flux vidéo: on sort proprement de la boucle
                     print("Fin du flux vidéo (master), arrêt en cours...")
                     break
 
@@ -99,12 +107,22 @@ class AeroFlowApp:
                 current_time = time.time()
                 if current_time - last_sample_time >= config.SAMPLING_INTERVAL:
                     total_count = count_a + self.remote_count
-                    self.predictor.add_measurement(total_count)
+                    
+                    # Ajouter aux 3 prédicteurs
+                    self.predictor_total.add_measurement(total_count)
+                    self.predictor_a.add_measurement(count_a)
+                    self.predictor_b.add_measurement(self.remote_count)
+                    
                     last_sample_time = current_time
 
-                    # Calculer prédiction et tendance seulement lors de l'échantillonnage
-                    last_prediction = self.predictor.predict("linear")
-                    last_trend = self.predictor.get_trend()
+                    # Calculer les 3 prédictions et tendances
+                    last_prediction_total = self.predictor_total.predict("linear")
+                    last_prediction_a = self.predictor_a.predict("linear")
+                    last_prediction_b = self.predictor_b.predict("linear")
+                    
+                    last_trend_total = self.predictor_total.get_trend()
+                    last_trend_a = self.predictor_a.get_trend()
+                    last_trend_b = self.predictor_b.get_trend()
 
                     self.session_records.append({
                         "timestamp": datetime.datetime.now().strftime(
@@ -113,25 +131,21 @@ class AeroFlowApp:
                         "local_count": int(count_a),
                         "remote_count": int(self.remote_count),
                         "total_count": int(total_count),
-                        "prediction": None if last_prediction is None else float(
-                            last_prediction
-                        ),
-                        "trend": last_trend
+                        "prediction_total": None if last_prediction_total is None else float(last_prediction_total),
+                        "prediction_a": None if last_prediction_a is None else float(last_prediction_a),
+                        "prediction_b": None if last_prediction_b is None else float(last_prediction_b),
+                        "trend_total": last_trend_total,
+                        "trend_a": last_trend_a,
+                        "trend_b": last_trend_b
                     })
 
                 # Annotation vidéo
                 annotated = self.tracker.draw_detections(frame, bboxes, count_a)
                 annotated = FrameAnnotator.annotate_frame(
-                    annotated, count_a, "A", "Maitre", last_prediction
+                    annotated, count_a, "A", "Maitre"
                 )
 
                 cv2.imshow(config.WINDOW_NAME_MASTER, annotated)
-
-                # Petit sleep pour éviter l'effet "vidéo accélérée"
-                time.sleep(1.0 / max(getattr(config, "FPS", 10), 1))
-
-                # AUCUNE mise à jour du dashboard ici
-                # (il sera affiché une seule fois en fin de session)
 
                 key = cv2.waitKey(1) & 0xFF
                 if key == ord('q') or key == 27:
@@ -210,8 +224,6 @@ class AeroFlowApp:
 
                 cv2.imshow(config.WINDOW_NAME_SLAVE, annotated)
 
-               
-
                 key = cv2.waitKey(1) & 0xFF
                 if key == ord('q') or key == 27:
                     print("Arret demande...")
@@ -273,32 +285,46 @@ class AeroFlowApp:
         if self.mode == "master":
             try:
                 # Historique des totaux pour la courbe principale
-                history = self.predictor.get_history()  # ex: [12, 15, 18, ...]
+                history = self.predictor_total.get_history()
 
                 if not history or not self.session_records:
                     print("[INFO] Pas assez de données, dashboard non affiché.")
                 else:
-                    # Derniers états pour alimenter le panneau info
+                    # Derniers états
                     last = self.session_records[-1]
                     last_local = last.get("local_count", 0)
                     last_remote = last.get("remote_count", 0)
-                    last_pred = last.get("prediction", None)
-                    last_trend = last.get("trend", "stable")
+                    
+                    # Récupérer les 3 prédictions
+                    last_pred_total = last.get("prediction_total", None)
+                    last_pred_a = last.get("prediction_a", None)
+                    last_pred_b = last.get("prediction_b", None)
+                    
+                    # Récupérer les 3 tendances
+                    last_trend_total = last.get("trend_total", "stable")
+                    last_trend_a = last.get("trend_a", "stable")
+                    last_trend_b = last.get("trend_b", "stable")
 
                     print(f"[INFO] Historique total: {len(history)} points")
 
-                    # Dashboard de synthèse, avec history + session_records
+                    # Dashboard de synthèse avec les 3 prédictions
                     self.dashboard.show_summary(
                         history=history,
-                        prediction=last_pred,
+                        prediction_total=last_pred_total,
+                        prediction_a=last_pred_a,
+                        prediction_b=last_pred_b,
                         current_a=last_local,
                         current_b=last_remote,
-                        trend=last_trend,
+                        trend=last_trend_total,
+                        trend_a=last_trend_a,
+                        trend_b=last_trend_b,
                         session_records=self.session_records
                     )
 
             except Exception as e:
                 print(f"[AVERTISSEMENT] Impossible d'afficher le résumé : {e}")
+                import traceback
+                traceback.print_exc()
 
             self.server.stop()
 
