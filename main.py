@@ -58,6 +58,7 @@ class AeroFlowApp:
 
     def on_remote_count(self, count: int):
         self.remote_count = count
+        print(f"[MASTER] remote_count reçu = {count}")
 
     # ------------------------------------------------------------------
     # MODE MAITRE
@@ -205,10 +206,12 @@ class AeroFlowApp:
                     break
 
                 count_b, bboxes = self.tracker.detect_people(frame)
+                print(f"[SLAVE] count_b (détection locale) = {count_b}")
 
                 current_time = time.time()
                 if current_time - last_send_time >= config.SAMPLING_INTERVAL:
                     self.client.send_count(count_b)
+                    print(f"[SLAVE] Envoi au maître: {count_b}")
                     last_send_time = current_time
                     self.session_records.append({
                         "timestamp": datetime.datetime.now().strftime(
