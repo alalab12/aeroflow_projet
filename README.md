@@ -461,3 +461,8 @@ Le projet actuel est volontairement simple, et c'est justement ce qui fait sa fo
 
 Dans la version initiale, l'idée globale visait l'optimisation des flux aéroportuaires à partir de plusieurs sources de données 
 ​. Cette implémentation garde cet esprit, mais sous une forme réaliste, démontrable et adaptée à un cadre étudiant.
+
+
+vidéoo :
+maître : python main.py --mode master --video "video_test.mp4"
+esclave : python main.py --mode slave --video "video_test.mp4" --master-ip 192.168.x.x
