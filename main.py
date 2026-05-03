@@ -38,12 +38,13 @@ class AeroFlowApp:
             self.predictor_total = FlowPredictor()
             self.predictor_a = FlowPredictor()
             self.predictor_b = FlowPredictor()
-            
+
             self.dashboard = FlowDashboard()
             self.server = NetworkServer(callback=self.on_remote_count)
             self.remote_count = 0
         else:
-            self.client = NetworkClient(master_ip)
+            # Le client réseau sera créé dans run_slave
+            self.client: NetworkClient | None = None
 
         self.is_running = False
         self.session_start_time = time.time()
@@ -108,19 +109,21 @@ class AeroFlowApp:
                 current_time = time.time()
                 if current_time - last_sample_time >= config.SAMPLING_INTERVAL:
                     total_count = count_a + self.remote_count
-                    
+
+                    print(f"[MASTER] sample A={count_a}, B={self.remote_count}, Total={total_count}")
+
                     # Ajouter aux 3 prédicteurs
                     self.predictor_total.add_measurement(total_count)
                     self.predictor_a.add_measurement(count_a)
                     self.predictor_b.add_measurement(self.remote_count)
-                    
+
                     last_sample_time = current_time
 
                     # Calculer les 3 prédictions et tendances
                     last_prediction_total = self.predictor_total.predict("linear")
                     last_prediction_a = self.predictor_a.predict("linear")
                     last_prediction_b = self.predictor_b.predict("linear")
-                    
+
                     last_trend_total = self.predictor_total.get_trend()
                     last_trend_a = self.predictor_a.get_trend()
                     last_trend_b = self.predictor_b.get_trend()
@@ -182,6 +185,9 @@ class AeroFlowApp:
         if not self.camera.start():
             return
 
+        # Création du client réseau ici, après démarrage de la caméra
+        self.client = NetworkClient(self.master_ip)
+
         self.is_running = True
 
         print("Camera B active - Mode optimise")
@@ -210,9 +216,14 @@ class AeroFlowApp:
 
                 current_time = time.time()
                 if current_time - last_send_time >= config.SAMPLING_INTERVAL:
-                    self.client.send_count(count_b)
-                    print(f"[SLAVE] Envoi au maître: {count_b}")
+                    if self.client is None:
+                        print("[SLAVE] Client réseau non initialisé, tentative de reconnexion...")
+                        self.client = NetworkClient(self.master_ip)
+
+                    ok = self.client.send_count(count_b)
+                    print(f"[SLAVE] Envoi au maître: {count_b} (ok={ok})")
                     last_send_time = current_time
+
                     self.session_records.append({
                         "timestamp": datetime.datetime.now().strftime(
                             "%Y-%m-%dT%H:%M:%S"
@@ -297,12 +308,12 @@ class AeroFlowApp:
                     last = self.session_records[-1]
                     last_local = last.get("local_count", 0)
                     last_remote = last.get("remote_count", 0)
-                    
+
                     # Récupérer les 3 prédictions
                     last_pred_total = last.get("prediction_total", None)
                     last_pred_a = last.get("prediction_a", None)
                     last_pred_b = last.get("prediction_b", None)
-                    
+
                     # Récupérer les 3 tendances
                     last_trend_total = last.get("trend_total", "stable")
                     last_trend_a = last.get("trend_a", "stable")
