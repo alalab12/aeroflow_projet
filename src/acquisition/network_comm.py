@@ -44,12 +44,12 @@ class NetworkServer:
         while self.is_running:
             try:
                 print("[SERVER] En attente de connexion du slave...")
+                # timeout pour pouvoir sortir proprement quand is_running passe à False
                 self.server_socket.settimeout(1.0)
                 conn, addr = self.server_socket.accept()
                 self.conn = conn
                 print(f"[SERVER] Slave connecté depuis {addr}")
 
-                # On lit en boucle sur cette connexion tant qu'elle est ouverte
                 buffer = ""
                 while self.is_running:
                     chunk = conn.recv(config.BUFFER_SIZE)
@@ -59,7 +59,7 @@ class NetworkServer:
 
                     buffer += chunk.decode("utf-8")
 
-                    # Protocole très simple: un JSON par ligne ('\n')
+                    # Protocole: un JSON par ligne (terminé par '\n')
                     while "\n" in buffer:
                         line, buffer = buffer.split("\n", 1)
                         line = line.strip()
@@ -74,7 +74,10 @@ class NetworkServer:
                         except Exception as e:
                             print(f"[SERVER] Erreur décodage JSON: {e} | line={line}")
 
-                conn.close()
+                try:
+                    conn.close()
+                except Exception:
+                    pass
                 self.conn = None
 
             except socket.timeout:
@@ -105,6 +108,7 @@ class NetworkClient:
     def __init__(self, master_ip: str):
         self.master_ip = master_ip
         self.sock: Optional[socket.socket] = None
+        print(f"[CLIENT] Initialisation NetworkClient vers {self.master_ip}")
         self._connect()
 
     def _connect(self):
@@ -140,7 +144,7 @@ class NetworkClient:
 
         except Exception as e:
             print(f"[CLIENT] Erreur envoi réseau: {e}")
-            # On invalide la socket pour tenter de se reconnecter au prochain appel
+            # La connexion a été coupée (10053, etc.) -> on la refera au prochain appel
             try:
                 if self.sock:
                     self.sock.close()
