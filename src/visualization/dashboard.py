@@ -348,41 +348,82 @@ class FlowDashboard:
 
     def _estimate_flux_ab(
         self,
-        session_records: List[Dict[str, Any]]
+        session_records: List[Dict[str, Any]],
+        delay_steps: int = 2,  # 2 mesures * 3s = ~6s de délai (temps de marche A->B)
+        threshold: float = 0.3  # variation minimale pour compter un flux
     ) -> tuple[float, float]:
         """
-        Estime les flux A->B et B->A de manière simple.
+        Estime les flux A->B et B->A avec délai temporel et seuil.
         
-        Méthode : on compte les transitions où une caméra voit une augmentation
-        juste après que l'autre ait détecté des personnes.
+        Logique :
+        - A->B : on regarde si A diminue à t, puis B augmente à t+delay
+        - B->A : on regarde si B diminue à t, puis A augmente à t+delay
+        
+        Args:
+            session_records: liste des enregistrements de session
+            delay_steps: nombre de mesures de délai (1 step = SAMPLING_INTERVAL secondes)
+            threshold: variation minimale pour compter comme un flux
+        
+        Returns:
+            (flux_a_to_b_moyen, flux_b_to_a_moyen)
         """
-        local_series = [rec.get("local_count", 0) for rec in session_records]
-        remote_series = [rec.get("remote_count", 0) for rec in session_records]
+        local_series = np.array([rec.get("local_count", 0) for rec in session_records], dtype=float)
+        remote_series = np.array([rec.get("remote_count", 0) for rec in session_records], dtype=float)
 
         n = len(local_series)
-        if n < 2:
+        if n <= delay_steps + 1:
             return 0.0, 0.0
 
-        flux_a_to_b = 0
-        flux_b_to_a = 0
+        flux_a_to_b_total = 0.0
+        flux_b_to_a_total = 0.0
+        count_a_to_b = 0
+        count_b_to_a = 0
 
-        for i in range(n - 1):
-            local_now = local_series[i]
-            local_next = local_series[i + 1]
-            remote_now = remote_series[i]
-            remote_next = remote_series[i + 1]
+        # Parcourir avec délai
+        for i in range(n - delay_steps - 1):
+            # État au moment t
+            a_now = local_series[i]
+            b_now = remote_series[i]
+            
+            # État au moment t+1 (immédiat)
+            a_next = local_series[i + 1]
+            b_next = remote_series[i + 1]
+            
+            # État au moment t+delay (après marche)
+            a_delayed = local_series[i + delay_steps]
+            b_delayed = remote_series[i + delay_steps]
 
-            # A -> B : si A diminue ET B augmente
-            if local_now > local_next and remote_next > remote_now:
-                flux_a_to_b += (local_now - local_next)
+            # --- Flux A -> B ---
+            # Condition : A diminue de manière significative ET B augmente avec délai
+            delta_a_immediate = a_now - a_next
+            delta_b_delayed = b_delayed - b_now
+            
+            if delta_a_immediate >= threshold and delta_b_delayed >= threshold:
+                # On prend le minimum des deux variations (personnes réellement transférées)
+                transferred = min(delta_a_immediate, delta_b_delayed)
+                flux_a_to_b_total += transferred
+                count_a_to_b += 1
 
-            # B -> A : si B diminue ET A augmente
-            if remote_now > remote_next and local_next > local_now:
-                flux_b_to_a += (remote_now - remote_next)
+            # --- Flux B -> A ---
+            # Condition : B diminue de manière significative ET A augmente avec délai
+            delta_b_immediate = b_now - b_next
+            delta_a_delayed = a_delayed - a_now
+            
+            if delta_b_immediate >= threshold and delta_a_delayed >= threshold:
+                # On prend le minimum des deux variations
+                transferred = min(delta_b_immediate, delta_a_delayed)
+                flux_b_to_a_total += transferred
+                count_b_to_a += 1
 
-        # Moyenne par mesure
-        mean_flux_a_to_b = flux_a_to_b / max(n - 1, 1)
-        mean_flux_b_to_a = flux_b_to_a / max(n - 1, 1)
+        # Moyennes
+        mean_flux_a_to_b = flux_a_to_b_total / max(count_a_to_b, 1)
+        mean_flux_b_to_a = flux_b_to_a_total / max(count_b_to_a, 1)
+
+        # Si aucun flux détecté, retourner 0
+        if count_a_to_b == 0:
+            mean_flux_a_to_b = 0.0
+        if count_b_to_a == 0:
+            mean_flux_b_to_a = 0.0
 
         return mean_flux_a_to_b, mean_flux_b_to_a
 
@@ -415,8 +456,12 @@ class FlowDashboard:
             delta = prediction - history[-1]
             info += f"Delta vs actuel: {delta:+5.1f}\n"
 
-        # Flux estimés A->B / B->A
-        flux_a_to_b, flux_b_to_a = self._estimate_flux_ab(session_records)
+        # Flux estimés A->B / B->A avec délai optimisé
+        flux_a_to_b, flux_b_to_a = self._estimate_flux_ab(
+            session_records,
+            delay_steps=1,    # 2 mesures * 3s = 6s de délai (temps de marche)
+            threshold=0.3     # variation minimale pour éviter le bruit
+        )
 
         info += "-" * 32 + "\n"
         info += f"Flux A -> B (moyen): {flux_a_to_b:5.2f}\n"
