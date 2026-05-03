@@ -36,9 +36,9 @@ class FlowDashboard:
 
         self.fig = plt.figure(figsize=(config.GRAPH_WIDTH, fig_height))
         self.fig.suptitle(
-            'AeroFlow - Dashboard de synthèse de session',
+            "AeroFlow - Dashboard de synthèse de session",
             fontsize=16,
-            fontweight='bold'
+            fontweight="bold",
         )
 
         # 2 sous-graphiques : graphique 30%, tableau 70%
@@ -58,7 +58,7 @@ class FlowDashboard:
         trend: str,
         trend_a: str,
         trend_b: str,
-        session_records: List[Dict[str, Any]]
+        session_records: List[Dict[str, Any]],
     ):
         """
         Affiche le dashboard UNE SEULE FOIS en fin de session,
@@ -342,9 +342,11 @@ class FlowDashboard:
             full_cell_text = []
             for t, loc, rem, tot in zip(times, locals_, remotes, totals):
                 ts_str = t.strftime("%H:%M:%S")
+                # Caméra A
                 full_cell_text.append([ts_str, "A", f"{loc:3.1f}"])
-                if rem > 0:
-                    full_cell_text.append([ts_str, "B", f"{rem:3.1f}"])
+                # Caméra B (toujours affichée, même à 0.0)
+                full_cell_text.append([ts_str, "B", f"{rem:3.1f}"])
+                # Total
                 full_cell_text.append([ts_str, "Total", f"{tot:3.1f}"])
 
             if not full_cell_text:
